@@ -257,8 +257,9 @@ The `runAxe` helper handles DOM isolation and disables page-level rules that don
 Write end-to-end tests using Playwright:
 
 ```bash
-pnpm test:browser        # Run tests
-pnpm test:browser:ui     # Run with Playwright UI
+pnpm exec playwright install # Install latest playwright browsers
+pnpm test:browser            # Run tests
+pnpm test:browser:ui         # Run with Playwright UI
 ```
 
 Make sure to read about [Playwright best practices](https://playwright.dev/docs/best-practices) and don't rely on classes/IDs but try to follow user-replicable behaviour (like selecting an element based on text content instead).
