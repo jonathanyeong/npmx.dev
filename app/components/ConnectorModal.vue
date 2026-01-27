@@ -125,6 +125,14 @@ watch(open, isOpen => {
               </p>
 
               <div
+                class="inline-flex items-center gap-1 p-0.5 bg-bg-subtle border border-border-subtle rounded-md"
+                role="tablist"
+                :aria-label="$t('package.install.pm_label')"
+              >
+                <PackageManagerTabs v-model="selectedPM" />
+              </div>
+
+              <div
                 class="flex items-center p-3 bg-[#0d0d0d] border border-border rounded-lg font-mono text-sm"
               >
                 <span class="text-fg-subtle">$</span>
