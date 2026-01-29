@@ -1,12 +1,7 @@
 <script setup lang="ts">
-const route = useRoute('blog')
-const router = useRouter()
-
-// 1. Define your list of posts (This would eventually come from useAsyncData)
-const posts = [
-  { slug: 'hello-world', title: 'Hello World', excerpt: 'My first post' },
-  { slug: 'server-components', title: 'Server Components', excerpt: 'Zero JS' },
-]
+const { data: posts } = await useAsyncData('blog-posts', () =>
+  queryCollection('blog').where('draft', '<>', true).order('date', 'DESC').all(),
+)
 
 definePageMeta({
   name: 'blog',
