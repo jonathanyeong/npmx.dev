@@ -20,6 +20,7 @@
     "lint:fix": "vite lint --fix && vite fmt",
     "generate": "nuxt generate",
     "npmx-connector": "pnpm --filter npmx-connector dev",
+    "postinstall": "nuxt prepare",
     "preview": "nuxt preview",
     "generate:lexicons": "lex build --lexicons lexicons --out shared/types/lexicons --clear",
     "test": "vite test",
