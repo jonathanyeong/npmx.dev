@@ -1074,7 +1074,6 @@ function handleClick(event: MouseEvent) {
 
 .area-install {
   grid-area: install;
-  overflow-x: hidden;
 }
 
 .area-vulns {
