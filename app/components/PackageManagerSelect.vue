@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onClickOutside } from '@vueuse/core'
+import { onClickOutside, useEventListener } from '@vueuse/core'
 
 const selectedPM = useSelectedPackageManager()
 
@@ -7,6 +7,18 @@ const listRef = useTemplateRef('listRef')
 const triggerRef = useTemplateRef('triggerRef')
 const isOpen = shallowRef(false)
 const highlightedIndex = shallowRef(-1)
+
+const dropdownPosition = shallowRef<{ top: number; left: number } | null>(null)
+
+function getDropdownStyle(): Record<string, string> {
+  if (!dropdownPosition.value) return {}
+  return {
+    top: `${dropdownPosition.value.top}px`,
+    left: `${dropdownPosition.value.left}px`,
+  }
+}
+
+useEventListener('scroll', close, true)
 
 // Generate unique ID for accessibility
 const inputId = useId()
@@ -20,6 +32,13 @@ function toggle() {
   if (isOpen.value) {
     close()
   } else {
+    if (triggerRef.value) {
+      const rect = triggerRef.value.getBoundingClientRect()
+      dropdownPosition.value = {
+        top: rect.bottom + 4,
+        left: rect.left,
+      }
+    }
     isOpen.value = true
     highlightedIndex.value = packageManagers.findIndex(pm => pm.id === selectedPM.value)
   }
@@ -70,37 +89,37 @@ function handleKeydown(event: KeyboardEvent) {
 </script>
 
 <template>
-  <div class="relative">
-    <button
-      ref="triggerRef"
-      type="button"
-      class="flex items-center gap-1.5 px-2 py-2 font-mono text-xs text-fg-muted bg-bg-subtle border border-border-subtle border-solid rounded-md transition-colors duration-150 hover:(text-fg border-border-hover) active:scale-95 focus:border-border-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fg/50 hover:text-fg"
-      :aria-expanded="isOpen"
-      aria-haspopup="listbox"
-      :aria-label="$t('settings.package_manager')"
-      :aria-controls="listboxId"
-      @click="toggle"
-      @keydown="handleKeydown"
-    >
-      <ClientOnly>
-        <span class="inline-block h-3 w-3" :class="pm.icon" aria-hidden="true" />
-        <span>{{ pm.label }}</span>
-        <template #fallback>
-          <span class="inline-block h-3 w-3 i-simple-icons:npm" aria-hidden="true" />
-          <span>npm</span>
-        </template>
-      </ClientOnly>
-      <span
-        class="i-carbon:chevron-down w-3 h-3"
-        :class="[
-          { 'rotate-180': isOpen },
-          prefersReducedMotion ? '' : 'transition-transform duration-200',
-        ]"
-        aria-hidden="true"
-      />
-    </button>
+  <button
+    ref="triggerRef"
+    type="button"
+    class="flex items-center gap-1.5 px-2 py-2 font-mono text-xs text-fg-muted bg-bg-subtle border border-border-subtle border-solid rounded-md transition-colors duration-150 hover:(text-fg border-border-hover) active:scale-95 focus:border-border-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fg/50 hover:text-fg"
+    :aria-expanded="isOpen"
+    aria-haspopup="listbox"
+    :aria-label="$t('settings.package_manager')"
+    :aria-controls="listboxId"
+    @click="toggle"
+    @keydown="handleKeydown"
+  >
+    <ClientOnly>
+      <span class="inline-block h-3 w-3" :class="pm.icon" aria-hidden="true" />
+      <span>{{ pm.label }}</span>
+      <template #fallback>
+        <span class="inline-block h-3 w-3 i-simple-icons:npm" aria-hidden="true" />
+        <span>npm</span>
+      </template>
+    </ClientOnly>
+    <span
+      class="i-carbon:chevron-down w-3 h-3"
+      :class="[
+        { 'rotate-180': isOpen },
+        prefersReducedMotion ? '' : 'transition-transform duration-200',
+      ]"
+      aria-hidden="true"
+    />
+  </button>
 
-    <!-- Dropdown menu -->
+  <!-- Dropdown menu (teleported to body to avoid clipping) -->
+  <Teleport to="body">
     <Transition
       :enter-active-class="prefersReducedMotion ? '' : 'transition-opacity duration-150'"
       :enter-from-class="prefersReducedMotion ? '' : 'opacity-0'"
@@ -120,7 +139,8 @@ function handleKeydown(event: KeyboardEvent) {
             : undefined
         "
         :aria-label="$t('settings.package_manager')"
-        class="absolute inset-ie-0 top-full mt-1 bg-bg-elevated border border-border rounded-md shadow-lg z-50 py-1"
+        :style="getDropdownStyle()"
+        class="fixed bg-bg-subtle border border-border rounded-md shadow-lg z-50"
       >
         <li
           v-for="(pm, index) in packageManagers"
@@ -131,7 +151,7 @@ function handleKeydown(event: KeyboardEvent) {
           class="flex items-center gap-2 px-3 py-1.5 font-mono text-xs cursor-pointer transition-colors duration-150"
           :class="[
             selectedPM === pm.id ? 'text-fg' : 'text-fg-subtle',
-            highlightedIndex === index ? 'bg-bg-subtle' : 'hover:bg-bg-subtle',
+            highlightedIndex === index ? 'bg-bg-elevated' : 'hover:bg-bg-elevated',
           ]"
           @click="select(pm.id)"
           @mouseenter="highlightedIndex = index"
@@ -146,5 +166,5 @@ function handleKeydown(event: KeyboardEvent) {
         </li>
       </ul>
     </Transition>
-  </div>
+  </Teleport>
 </template>
