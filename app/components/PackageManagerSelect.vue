@@ -74,7 +74,7 @@ function handleKeydown(event: KeyboardEvent) {
     <button
       ref="triggerRef"
       type="button"
-      class="inline-flex items-center gap-1 px-2 py-1 font-mono text-xs text-fg-muted bg-bg-subtle/80 border border-border rounded transition-colors duration-200 hover:(text-fg border-border-hover) active:scale-95 focus:border-border-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fg/50"
+      class="flex items-center gap-1.5 px-2 py-2 font-mono text-xs text-fg-muted bg-bg-subtle border border-border-subtle border-solid rounded-md transition-colors duration-150 hover:(text-fg border-border-hover) active:scale-95 focus:border-border-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fg/50 hover:text-fg"
       :aria-expanded="isOpen"
       aria-haspopup="listbox"
       :aria-label="$t('settings.package_manager')"
@@ -120,7 +120,7 @@ function handleKeydown(event: KeyboardEvent) {
             : undefined
         "
         :aria-label="$t('settings.package_manager')"
-        class="absolute inset-ie-0 top-full mt-1 min-w-28 bg-bg-elevated border border-border rounded-lg shadow-lg z-50 py-1"
+        class="absolute inset-ie-0 top-full mt-1 bg-bg-elevated border border-border rounded-md shadow-lg z-50 py-1"
       >
         <li
           v-for="(pm, index) in packageManagers"
@@ -136,11 +136,11 @@ function handleKeydown(event: KeyboardEvent) {
           @click="select(pm.id)"
           @mouseenter="highlightedIndex = index"
         >
-          <span class="inline-block h-3 w-3 shrink-0" :class="pm.icon" aria-hidden="true" />
+          <span class="inline-block h-3 w-3" :class="pm.icon" aria-hidden="true" />
           <span>{{ pm.label }}</span>
           <span
             v-if="selectedPM === pm.id"
-            class="i-carbon:checkmark w-3 h-3 text-accent ms-auto shrink-0"
+            class="i-carbon:checkmark w-3 h-3 text-accent ms-auto"
             aria-hidden="true"
           />
         </li>
