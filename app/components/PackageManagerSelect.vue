@@ -100,14 +100,8 @@ function handleKeydown(event: KeyboardEvent) {
     @click="toggle"
     @keydown="handleKeydown"
   >
-    <ClientOnly>
-      <span class="inline-block h-3 w-3" :class="pm.icon" aria-hidden="true" />
-      <span>{{ pm.label }}</span>
-      <template #fallback>
-        <span class="inline-block h-3 w-3 i-simple-icons:npm" aria-hidden="true" />
-        <span>npm</span>
-      </template>
-    </ClientOnly>
+    <span class="inline-block h-3 w-3" :class="pm.icon" aria-hidden="true" />
+    <span>{{ pm.label }}</span>
     <span
       class="i-carbon:chevron-down w-3 h-3"
       :class="[
