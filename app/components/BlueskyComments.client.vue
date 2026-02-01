@@ -96,10 +96,8 @@ const totalLikes = computed(() => likesInfo.value?.totalLikes || 0)
 const { data: likesInfo } = useAsyncData(
   `bsky-likes-${props.postUri}`,
   async () => {
-    const encodedUri = encodeURIComponent(props.postUri)
-
-    // Default getLikes limit is 50. We use it in conjunction with getPosts
-    // to show remaining likes
+    // Default getLikes limit is 50. With 1 <= limit <= 100
+    // So we use it in conjunction with getPosts to display remaining likes count
     const [postData, likesData] = await Promise.all([
       $fetch<{ posts: { likeCount?: number }[] }>(`${BSKY_API}app.bsky.feed.getPosts`, {
         query: { uris: props.postUri },
@@ -154,7 +152,7 @@ const { data: likesInfo } = useAsyncData(
             :href="postUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="link ml-auto"
+            class="link ms-auto"
           >
             +{{ totalLikes - likes.length }} more
           </a>
@@ -197,7 +195,7 @@ const { data: likesInfo } = useAsyncData(
             :href="postUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="link ml-auto"
+            class="link ms-auto"
           >
             Reply on Bluesky
           </a>

@@ -13,12 +13,6 @@ useSeoMeta({
   ogType: 'article',
 })
 
-// Hardcoded values for reference/testing
-// const BSKY_DID = 'did:plc:jbeaa5kdaladzwq3r7f5xgwe'
-// const BSKY_DID = 'did:plc:5ixnpdbogli5f7fbbee5fmuq' // Albie
-// const BSKY_POST_ID = '3mcg6svsgsm2k'
-// const BSKY_POST_ID = '3mdoijswyz22u'
-
 const slug = computed(() => props.frontmatter?.slug)
 
 // Use Constellation to find the Bluesky post linking to this blog post
