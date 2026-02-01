@@ -5,6 +5,8 @@ import { safeParse } from 'valibot'
 import * as site from '../shared/types/lexicons/site'
 import { BlogPostSchema } from '../shared/schemas/blog'
 import { NPMX_SITE } from '../shared/utils/constants'
+import { TID } from '@atproto/common'
+import { Client } from '@atproto/lex'
 
 const syncedDocuments = new Map<string, string>()
 
@@ -115,7 +117,19 @@ const syncFile = async (filePath: string, siteUrl: string) => {
       title: data.title,
       description: data.description ?? data.excerpt,
       tags: data.tags,
+      // This can be extended to update the site.standard.document .updatedAt if it is changed and use the posts date here
       publishedAt: new Date(data.date).toISOString(),
+    })
+
+    const dateInMicroSeconds = new Date(result.output.date).getTime() * 1_000
+    // Clock id(3) needs to be the same everytime to get the same TID from a timestamp
+    const tid = TID.fromTime(dateInMicroSeconds, 3)
+    //Authenticated via an app password to the PDS
+    const client = new Client('https://pdsurl.com')
+    // This will allow us to do an upsert on the date so we are always updating a record if it has the same published date instead of creating a new one everytime//
+    //
+    client.put(site.standard.document, document, {
+      rkey: tid.str,
     })
 
     console.log('[standard-site-sync] Pushing:', JSON.stringify(document, null, 2))
