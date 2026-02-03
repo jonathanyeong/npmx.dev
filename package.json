@@ -25,8 +25,8 @@
     "npmx-connector": "pnpm --filter npmx-connector dev",
     "generate-pwa-icons": "pwa-assets-generator",
     "preview": "nuxt preview",
-    "generate:fixtures": "node scripts/generate-fixtures.ts",
     "postinstall": "pnpm generate:lexicons && nuxt prepare && simple-git-hooks",
+    "generate:fixtures": "node scripts/generate-fixtures.ts",
     "generate:lexicons": "lex build --lexicons lexicons --out shared/types/lexicons --clear",
     "test": "vite test",
     "test:browser": "pnpm build:playwright && pnpm test:browser:prebuilt",
@@ -34,7 +34,7 @@
     "test:browser:ui": "pnpm build:playwright && pnpm test:browser:prebuilt --ui",
     "test:browser:update": "pnpm build:playwright && pnpm test:browser:prebuilt --update-snapshots",
     "test:nuxt": "vite test --project nuxt",
-    "test:types": "nuxt prepare && vue-tsc -b --noEmit && pnpm --filter npmx-connector test:types",
+    "test:types": "pnpm generate:lexicons && nuxt prepare && vue-tsc -b --noEmit && pnpm --filter npmx-connector test:types",
     "test:unit": "vite test --project unit",
     "start:playwright:webserver": "NODE_ENV=test pnpm preview --port 5678"
   },

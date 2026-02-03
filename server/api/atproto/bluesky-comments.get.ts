@@ -81,8 +81,8 @@ export default defineCachedEventHandler(
 
       return {
         thread,
-        likes: likesResponse.likes || [],
-        totalLikes: postsResponse.posts?.[0]?.likeCount || thread?.likeCount || 0,
+        likes: likesResponse.likes,
+        totalLikes: postsResponse.posts?.[0]?.likeCount ?? thread?.likeCount ?? 0,
         postUrl: atUriToWebUrl(uri),
       }
     } catch (error) {
