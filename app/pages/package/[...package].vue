@@ -23,6 +23,12 @@ definePageMeta({
   alias: ['/:package(.*)*'],
 })
 
+defineOgImageComponent('Package', {
+  name: () => packageName.value,
+  version: () => requestedVersion.value ?? '',
+  primaryColor: '#60a5fa',
+})
+
 const router = useRouter()
 
 const header = useTemplateRef('header')
@@ -53,8 +59,6 @@ const activePmId = computed(() => selectedPM.value ?? 'npm')
 if (import.meta.server) {
   assertValidPackageName(packageName.value)
 }
-
-const { data: downloads } = usePackageDownloads(packageName, 'last-week')
 
 // Fetch README for specific version if requested, otherwise latest
 const { data: readmeData } = useLazyFetch<ReadmeResponse>(
@@ -137,7 +141,7 @@ const {
   data: pkg,
   status,
   error,
-} = usePackage(packageName, resolvedVersion.value ?? requestedVersion)
+} = usePackage(packageName, resolvedVersion.value ?? requestedVersion.value)
 const displayVersion = computed(() => pkg.value?.requestedVersion ?? null)
 
 // Process package description
@@ -488,15 +492,6 @@ onKeyStroke(
     router.push({ path: '/compare', query: { packages: pkg.value.name } })
   },
 )
-
-defineOgImageComponent('Package', {
-  name: () => pkg.value?.name ?? 'Package',
-  version: () => resolvedVersion.value ?? '',
-  downloads: () => (downloads.value ? $n(downloads.value.downloads) : ''),
-  license: () => pkg.value?.license ?? '',
-  stars: () => stars.value ?? 0,
-  primaryColor: '#60a5fa',
-})
 </script>
 
 <template>
