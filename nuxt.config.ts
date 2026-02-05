@@ -70,6 +70,7 @@ export default defineNuxtConfig({
           href: '/opensearch.xml',
         },
       ],
+      meta: [{ name: 'twitter:card', content: 'summary_large_image' }],
     },
   },
 
@@ -89,6 +90,7 @@ export default defineNuxtConfig({
     '/': { prerender: true },
     '/opensearch.xml': { isr: true },
     '/**': { isr: getISRConfig(60, true) },
+    '/__og-image__/**': { isr: getISRConfig(60) },
     '/api/**': { isr: 60 },
     '/200.html': { prerender: true },
     '/package/**': { isr: getISRConfig(60, true) },
@@ -98,12 +100,20 @@ export default defineNuxtConfig({
     '/search': { isr: false, cache: false },
     '/api/auth/**': { isr: false, cache: false },
     '/api/social/**': { isr: false, cache: false },
+    '/api/opensearch/suggestions': {
+      isr: {
+        expiration: 60 * 60 * 24 /* one day */,
+        passQuery: true,
+        allowQuery: ['q'],
+      },
+    },
     // infinite cache (versioned - doesn't change)
     '/package-code/**': { isr: true, cache: { maxAge: 365 * 24 * 60 * 60 } },
     '/package-docs/:pkg/v/**': { isr: true, cache: { maxAge: 365 * 24 * 60 * 60 } },
     '/package-docs/:scope/:pkg/v/**': { isr: true, cache: { maxAge: 365 * 24 * 60 * 60 } },
     '/api/registry/docs/**': { isr: true, cache: { maxAge: 365 * 24 * 60 * 60 } },
     '/api/registry/file/**': { isr: true, cache: { maxAge: 365 * 24 * 60 * 60 } },
+    '/api/registry/provenance/**': { isr: true, cache: { maxAge: 365 * 24 * 60 * 60 } },
     '/api/registry/files/**': { isr: true, cache: { maxAge: 365 * 24 * 60 * 60 } },
     '/_avatar/**': {
       isr: 3600,
@@ -280,16 +290,15 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include: [
         '@vueuse/core',
+        '@vueuse/integrations/useFocusTrap',
         'vue-data-ui/vue-ui-sparkline',
         'vue-data-ui/vue-ui-xy',
         'virtua/vue',
         'semver',
         'validate-npm-package-name',
         '@atproto/lex',
-        '@atproto/lex-data',
-        '@atproto/lex-json',
-        '@atproto/lex-schema',
-        '@atproto/lex-client',
+        'fast-npm-meta',
+        '@floating-ui/vue',
       ],
     },
   },

@@ -156,6 +156,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   scroll-padding-top: 5rem; /* Offset for fixed header - otherwise anchor headers are cutted */
+  scrollbar-gutter: stable;
 }
 
 /*
@@ -197,9 +198,9 @@ a:hover {
 }
 
 a:focus-visible {
-  outline: 2px solid var(--border);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
 /* Reset dd margin (browser default is margin-left: 40px) */
@@ -216,6 +217,13 @@ button {
   padding: 0;
 }
 
+button:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 /* Selection */
 ::selection {
   background-color: var(--fg-muted);
@@ -223,6 +231,10 @@ button {
 }
 
 /* Scrollbar styling */
+* {
+  scrollbar-color: var(--border) var(--bg);
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -238,14 +250,13 @@ button {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #404040;
+  background: var(--border-hover);
 }
 
 /* Scrollbar styling for Firefox */
 @supports not selector(::-webkit-scrollbar) {
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--border) var(--bg);
   }
 }
 
