@@ -65,7 +65,7 @@ const mobileLinks = computed<NavigationConfigWithGroups>(() => [
         to: { name: 'blog' },
         type: 'link',
         external: false,
-        iconClass: 'i-carbon:blog',
+        iconClass: 'i-lucide:notebook-pen',
       },
       {
         name: 'Privacy Policy',
