@@ -2278,7 +2278,7 @@ describe('component accessibility audits', () => {
           topics: ['accessibility', 'vue'],
           excerpt: 'A guide to building accessible components in Vue.js applications.',
           published: '2024-06-15',
-          path: 'building-accessible-vue-components',
+          path: 'alpha-release',
           index: 0,
         },
       })
