@@ -123,6 +123,7 @@ import {
   AboutLogoList,
   AuthorAvatar,
   AuthorList,
+  BlogPostFederatedArticles,
   BlogPostListCard,
   BlogPostWrapper,
   BlueskyComment,
@@ -2280,6 +2281,32 @@ describe('component accessibility audits', () => {
           published: '2024-06-15',
           path: 'alpha-release',
           index: 0,
+        },
+      })
+      const results = await runAxe(component)
+      expect(results.violations).toEqual([])
+    })
+  })
+
+  describe('BlogPostFederatedArticles', () => {
+    it('should have no accessibility violations', async () => {
+      const component = await mountSuspended(BlogPostFederatedArticles, {
+        props: {
+          headline: 'Read more on Bluesky',
+          articles: [
+            {
+              url: 'https://example.com/post-1',
+              title: 'Federated Testing Patterns',
+              description: 'How to keep accessibility checks simple and maintainable.',
+              authorHandle: 'danielroe.dev',
+            },
+            {
+              url: 'https://example.com/post-2',
+              title: 'Composable Data in Vue',
+              description: 'Practical patterns for data composition in Vue components.',
+              authorHandle: 'salma.dev',
+            },
+          ],
         },
       })
       const results = await runAxe(component)
