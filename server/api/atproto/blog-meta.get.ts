@@ -80,8 +80,8 @@ function decodeHtmlEntities(str: string | null | undefined): string | null {
     .replace(/&#x27;/g, "'")
     .replace(/&#39;/g, "'")
     .replace(/&quot;/g, '"')
-    .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
   // Add more if needed, but these cover 99% of OG tag issues
 }

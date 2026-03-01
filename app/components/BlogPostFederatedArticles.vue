@@ -42,13 +42,13 @@ const { data: federatedArticles, status } = await useAsyncData(
           class="row-span-2"
         />
         <div class="flex flex-col">
-          <p class="text-lg text-fg uppercase leading-tight m-0">
+          <p class="text-lg text-fg leading-tight m-0">
             {{ article.title }}
           </p>
           <p class="text-md font-semibold text-fg-muted leading-none mt-2">
             {{ article.author.name }}
           </p>
-          <p class="text-xs text-fg-subtle leading-snug m-0">
+          <p class="text-sm text-fg-subtle leading-snug m-0">
             {{ article.description }}
           </p>
         </div>
