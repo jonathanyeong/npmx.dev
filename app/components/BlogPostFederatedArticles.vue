@@ -40,11 +40,11 @@ const federatedArticles = computed(() => {
 </script>
 
 <template>
-  <article class="px-4 py-2 sm:-mx-6 sm:px-6 sm:-my-3 sm:py-3 sm:rounded-md">
-    <h2 class="font-mono text-xl font-medium text-fg">
+  <aside class="px-4 sm:-mx-6 sm:px-6 sm:-my-3 sm:py-3 sm:rounded-md">
+    <h2 class="font-mono text-xl font-medium text-fg mt-0">
       {{ headline }}
     </h2>
-    <section
+    <div
       v-if="federatedArticles.length"
       class="grid gap-4 grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] transition-[grid-template-cols]"
     >
@@ -69,6 +69,6 @@ const federatedArticles = computed(() => {
           </p>
         </div>
       </a>
-    </section>
-  </article>
+    </div>
+  </aside>
 </template>
