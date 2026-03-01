@@ -12,8 +12,7 @@ excerpt: "npmx is an open-source project built by a rapidly growing community. I
 extension, everyone who works in the JavaScript ecosystem."
 date: "2026-03-03"
 slug: "alpha-release"
-description: "npmx is an open-source project built by a rapidly growing community. It's for open-source developers, and by
-extension, everyone who works in the JavaScript ecosystem."
+description: "npmx is an open-source project built by a rapidly growing community. It's for open-source developers, and by extension, everyone who works in the JavaScript ecosystem."
 draft: false
 ---
 
@@ -72,8 +71,7 @@ individuals, and a powerful catalyst to build community when done really, really
 
 We've packed a lot into the alpha release. Here's an overview of what you can expect from npmx today.
 
-Search and view details about packages, users and organizations available on npm, dive deeper into the code, plus get
-detailed information on:
+Search and view details about packages, users and organizations available on npm, dive deeper into the code, plus get detailed information on:
 
 - download statistics
 - outdated dependency warnings
@@ -139,7 +137,7 @@ authorHandle: 'johnnyreilly.com',
 description: "How to contribute to npmx.dev, and thoughts on Johnny's experience with the project.",
 },
 {
-url: 'https://blog.trueberryless.org/blog/npmx/'
+url: 'https://blog.trueberryless.org/blog/npmx/',
 authorHandle: 'trueberryless.org',
 description: 'Telling the story of a newly founded community.',
 },
@@ -151,12 +149,12 @@ description: "The best open source projects aren't just about great code. They'r
 {
 url: 'https://storybook.js.org/blog/storybook-npmx',
 authorHandle: 'storybook.js.org',
-description: 'We’re huge fans of what the npmx community is building. Today’s alpha is just the starting line, and we’re proud to be running alongside them. '
+description: "We're huge fans of what the npmx community is building. Today's alpha is just the starting line, and we're proud to be running alongside them."
 },
 {
 url: 'https://jensroemer.com/writing/open-source-whats-in-it-for-me/',
 authorHandle: 'jensroemer.com',
-description: 'Reflections on learning, community, any change.'
+description: 'Reflections on learning, community, and change.'
 },
 {
 url: 'https://paulie.codes/blog/3mfs2stugzp2v',
