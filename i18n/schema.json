@@ -3316,6 +3316,9 @@
         "compare_versions": {
           "type": "string"
         },
+        "compare_versions_title": {
+          "type": "string"
+        },
         "summary": {
           "type": "string"
         },
