@@ -31,7 +31,7 @@ const federatedArticles = computed(() => {
       authorHandle: article.authorHandle,
       author: {
         name: profile?.name || article.authorHandle,
-        blueskyHandle: article.authorHandle,
+        blueskyHandle: article.authorHandle as AtIdentifierString,
         avatar: profile?.avatar || null,
         profileUrl: profile?.profileUrl || null,
       },

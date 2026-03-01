@@ -2,7 +2,7 @@
 import type { ResolvedAuthor } from '#shared/schemas/blog'
 
 const props = defineProps<{
-  author: Pick<ResolvedAuthor, 'name' | 'avatar'>
+  author: Partial<ResolvedAuthor> & Pick<ResolvedAuthor, 'name' | 'avatar'>
   size?: 'sm' | 'md' | 'lg'
 }>()
 
